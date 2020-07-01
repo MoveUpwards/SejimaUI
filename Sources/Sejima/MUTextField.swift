@@ -24,7 +24,7 @@ public struct MUTextField: View {
             Text(title.uppercased())
                 .font(.caption)
                 .fontWeight(.light)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .padding(.bottom, 8)
 
             Text(placeholder)
@@ -34,7 +34,7 @@ public struct MUTextField: View {
 
             Rectangle()
                 .frame(height: 1)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .opacity(0.3)
         }.padding()
     }

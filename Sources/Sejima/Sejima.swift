@@ -21,5 +21,11 @@ struct LibraryContent: LibraryContentProvider {
             title: "MUHeader",
             category: .control
         )
+
+        LibraryItem(
+            MUTag(action: {}, title: "", configuration: MUTagConfiguration()),
+            title: "MUTag",
+            category: .control
+        )
     }
 }

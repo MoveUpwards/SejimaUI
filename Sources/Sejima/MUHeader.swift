@@ -16,7 +16,7 @@ public struct MUHeaderConfiguration {
     public let spacing: CGFloat
 
     public static var shared: MUHeaderConfiguration {
-        MUHeaderConfiguration()
+        .init()
     }
 
     public init(alignment: TextAlignment = .leading,
