@@ -11,8 +11,14 @@ struct LibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(
-            MUTextField(title: "", placeholder: "", text: .constant("")),
+            MUTextField(with: "", placeholder: "", text: .constant("")),
             title: "MUTextField",
+            category: .control
+        )
+
+        LibraryItem(
+            MUHeader(title: "", subtitle: "", configuration: MUHeaderConfiguration()),
+            title: "MUHeader",
             category: .control
         )
     }
