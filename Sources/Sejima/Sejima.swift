@@ -11,7 +11,7 @@ struct LibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(
-            MUTextField(with: "", placeholder: "", text: .constant("")),
+            MUTextField(with: "", placeholder: "", text: .constant(""), configuration: MUTextFieldConfiguration()),
             title: "MUTextField",
             category: .control
         )
@@ -23,8 +23,14 @@ struct LibraryContent: LibraryContentProvider {
         )
 
         LibraryItem(
-            MUTag(action: {}, title: "", configuration: MUTagConfiguration()),
+            MUTag(action: {}, configuration: MUTagConfiguration()),
             title: "MUTag",
+            category: .control
+        )
+
+        LibraryItem(
+            MUButton(action: {}, configuration: .init(title: .init(), cornerRadius: 4, color: .green)),
+            title: "MUButton",
             category: .control
         )
     }

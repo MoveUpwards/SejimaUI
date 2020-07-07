@@ -10,14 +10,14 @@ import SwiftUI
 public struct MUHeaderConfiguration {
     public let alignment: TextAlignment
 
-    public let title: MUHeaderTextConfiguration
-    public let subtitle: MUHeaderTextConfiguration
+    public let title: MUTextConfiguration
+    public let subtitle: MUTextConfiguration
 
     public let spacing: CGFloat
 
     public init(alignment: TextAlignment = .leading,
-                title: MUHeaderTextConfiguration = .init(font: .title),
-                subtitle: MUHeaderTextConfiguration = .init(font: .subheadline),
+                title: MUTextConfiguration = .init(font: .title),
+                subtitle: MUTextConfiguration = .init(font: .subheadline),
                 spacing: CGFloat = 8) {
         self.alignment = alignment
         self.title = title
@@ -45,16 +45,6 @@ public struct MUHeaderConfiguration {
         case .trailing:
             return .trailing
         }
-    }
-}
-
-public struct MUHeaderTextConfiguration {
-    public let color: Color
-    public let font: Font
-
-    public init(color: Color = .black, font: Font) {
-        self.color = color
-        self.font = font
     }
 }
 
@@ -98,29 +88,29 @@ struct MUHeader_Previews: PreviewProvider {
             MUHeader(title: "Lorem ipsum dolor",
                      subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
                      configuration: MUHeaderConfiguration(alignment: .center,
-                                                          title: MUHeaderTextConfiguration(color: .green, font: .title),
-                                                          subtitle: MUHeaderTextConfiguration(color: .blue, font: .subheadline),
+                                                          title: .init(color: .green, font: .title),
+                                                          subtitle: .init(color: .blue, font: .subheadline),
                                                           spacing: 0)).previewLayout(.sizeThatFits)
 
             MUHeader(title: "Lorem ipsum dolor",
                      subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .leading)).previewLayout(.sizeThatFits)
+                     configuration: .init(alignment: .leading)).previewLayout(.sizeThatFits)
 
             MUHeader(title: "Lorem ipsum dolor",
                      subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .trailing)).previewLayout(.sizeThatFits)
+                     configuration: .init(alignment: .trailing)).previewLayout(.sizeThatFits)
 
             MUHeader(title: "Lorem ipsum dolor",
                      subtitle: "Lorem ipsum dolor sit.",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
+                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
 
             MUHeader(title: "Lorem ipsum dolor",
                      subtitle: "",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
+                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
 
             MUHeader(title: "",
                      subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
+                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
 
             MUHeader().previewLayout(.sizeThatFits)
         }
