@@ -15,10 +15,6 @@ public struct MUTagConfiguration {
 
     public let title: MUTagTitleConfiguration
 
-    public static var shared: MUTagConfiguration {
-        .init()
-    }
-
     public init(cornerRadius: CGFloat = 4,
                 lineWidth: CGFloat = 2,
                 backgroundColor: Color = .orange,
@@ -58,7 +54,7 @@ struct MUTag: View {
 
     public let configuration: MUTagConfiguration
 
-    public init(action: (() -> Void)? = nil, title: String = "", configuration: MUTagConfiguration = .shared) {
+    public init(action: (() -> Void)? = nil, title: String = "", configuration: MUTagConfiguration = .init()) {
         self.title = title
         self.action = action
 

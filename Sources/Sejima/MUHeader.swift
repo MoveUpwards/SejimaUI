@@ -15,10 +15,6 @@ public struct MUHeaderConfiguration {
 
     public let spacing: CGFloat
 
-    public static var shared: MUHeaderConfiguration {
-        .init()
-    }
-
     public init(alignment: TextAlignment = .leading,
                 title: MUHeaderTextConfiguration = .init(font: .title),
                 subtitle: MUHeaderTextConfiguration = .init(font: .subheadline),
@@ -68,7 +64,7 @@ public struct MUHeader: View {
 
     public let configuration: MUHeaderConfiguration
 
-    public init(title: String = "", subtitle: String = "", configuration: MUHeaderConfiguration = .shared) {
+    public init(title: String = "", subtitle: String = "", configuration: MUHeaderConfiguration = .init()) {
         self.title = title
         self.subtitle = subtitle
 
