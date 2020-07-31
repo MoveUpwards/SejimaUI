@@ -49,16 +49,14 @@ public struct MUHeaderConfiguration {
 }
 
 public struct MUHeader: View {
+    public let configuration: MUHeaderConfiguration
     public let title: String
     public let subtitle: String
-
-    public let configuration: MUHeaderConfiguration
-
-    public init(title: String = "", subtitle: String = "", configuration: MUHeaderConfiguration = .init()) {
+    
+    public init(configuration: MUHeaderConfiguration = .init(), title: String = "", subtitle: String = "") {
+        self.configuration = configuration
         self.title = title
         self.subtitle = subtitle
-
-        self.configuration = configuration
     }
 
     public var body: some View {
@@ -85,32 +83,33 @@ public struct MUHeader: View {
 struct MUHeader_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .center,
-                                                          title: .init(color: .green, font: .title),
-                                                          subtitle: .init(color: .blue, font: .subheadline),
-                                                          spacing: 0)).previewLayout(.sizeThatFits)
+            MUHeader(
+                configuration: MUHeaderConfiguration(alignment: .center,
+                                                     title: .init(color: .green, font: .title),
+                                                     subtitle: .init(color: .blue, font: .subheadline),
+                                                     spacing: 0),
+                title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").previewLayout(.sizeThatFits)
 
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: .init(alignment: .leading)).previewLayout(.sizeThatFits)
+            MUHeader(configuration: .init(alignment: .leading),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").previewLayout(.sizeThatFits)
 
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: .init(alignment: .trailing)).previewLayout(.sizeThatFits)
+            MUHeader(configuration: .init(alignment: .trailing),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").previewLayout(.sizeThatFits)
 
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit.",
-                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit.").previewLayout(.sizeThatFits)
 
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "",
-                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "").previewLayout(.sizeThatFits)
 
-            MUHeader(title: "",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: .init(alignment: .center)).previewLayout(.sizeThatFits)
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").previewLayout(.sizeThatFits)
 
             MUHeader().previewLayout(.sizeThatFits)
         }

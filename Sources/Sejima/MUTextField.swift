@@ -39,17 +39,15 @@ public struct MUTextFieldLineConfiguration {
 
 public struct MUTextField: View {
     public let configuration: MUTextFieldConfiguration
-    
     public let title: String
     public let placeholder: String
     public let text: Binding<String>
 
-    public init(with title: String, placeholder: String, text: Binding<String>, configuration: MUTextFieldConfiguration = .init()) {
+    public init(configuration: MUTextFieldConfiguration = .init(), title: String, placeholder: String, text: Binding<String>) {
+        self.configuration = configuration
         self.title = title
         self.placeholder = placeholder
         self.text = text
-
-        self.configuration = configuration
     }
 
     public var body: some View {
@@ -75,11 +73,10 @@ public struct MUTextField: View {
 struct MUTextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MUTextField(with: "Numéro de série",
+            MUTextField(configuration: .init(title: .init(color: .black), placeholder: .init(color: .green)),
+                        title: "Numéro de série",
                         placeholder: "0001-0178",
-                        text: .constant(""),
-                        configuration: .init(title: .init(color: .black),
-                                             placeholder: .init(color: .green)))
+                        text: .constant(""))
                 .colorScheme(.dark)
                 .previewLayout(.sizeThatFits)
         }

@@ -49,16 +49,14 @@ public struct MUTagTitleConfiguration {
 }
 
 struct MUTag: View {
+    public let configuration: MUTagConfiguration
     public let action: (() -> Void)?
     public let title: String
 
-    public let configuration: MUTagConfiguration
-
-    public init(action: (() -> Void)? = nil, title: String = "", configuration: MUTagConfiguration = .init()) {
+    public init(configuration: MUTagConfiguration = .init(), action: (() -> Void)? = nil, title: String = "") {
+        self.configuration = configuration
         self.title = title
         self.action = action
-
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -84,10 +82,12 @@ struct MUTag: View {
 struct MUTag_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MUTag(action: {
-                print("Tag tapped1")
-            }, title: "my label").previewLayout(.sizeThatFits)
-            MUTag(title: "my label".uppercased(), configuration: MUTagConfiguration(backgroundColor: .clear, borderColor: .orange)).previewLayout(.sizeThatFits)
+            MUTag(configuration: MUTagConfiguration(backgroundColor: .clear, borderColor: .orange),
+                  action: {
+                    print("Tag tapped1")
+                  }, title: "my label").previewLayout(.sizeThatFits)
+            
+            MUTag(title: "my label".uppercased()).previewLayout(.sizeThatFits)
         }
     }
 }

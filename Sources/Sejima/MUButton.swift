@@ -22,17 +22,16 @@ public struct MUButtonConfiguration {
 }
 
 public struct MUButton: View {
-    public let action: (() -> Void)?
     public let configuration: MUButtonConfiguration
+    public let action: () -> Void
 
-    public init(action: (() -> Void)? = nil, configuration: MUButtonConfiguration = .init()) {
-        self.action = action
-
+    public init(configuration: MUButtonConfiguration = .init(), action: @escaping () -> Void) {
         self.configuration = configuration
+        self.action = action
     }
 
     public var body: some View {
-        Button(action: {}, label: {
+        Button(action: action, label: {
             Spacer()
             Text(configuration.title.text.uppercased())
                 .font(configuration.title.font)
@@ -48,6 +47,6 @@ public struct MUButton: View {
 
 struct MUButton_Previews: PreviewProvider {
     static var previews: some View {
-        MUButton(configuration: .init())
+        MUButton(configuration: .init(), action: {})
     }
 }

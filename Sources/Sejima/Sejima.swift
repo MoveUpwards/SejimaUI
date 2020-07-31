@@ -11,26 +11,32 @@ struct LibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(
-            MUTextField(with: "", placeholder: "", text: .constant(""), configuration: MUTextFieldConfiguration()),
+            MUTextField(configuration: MUTextFieldConfiguration(), title: "", placeholder: "", text: .constant("")),
             title: "MUTextField",
             category: .control
         )
 
         LibraryItem(
-            MUHeader(title: "", subtitle: "", configuration: MUHeaderConfiguration()),
+            MUHeader(configuration: MUHeaderConfiguration(), title: "", subtitle: ""),
             title: "MUHeader",
             category: .control
         )
 
         LibraryItem(
-            MUTag(action: {}, configuration: MUTagConfiguration()),
+            MUTag(configuration: MUTagConfiguration(), action: {}),
             title: "MUTag",
             category: .control
         )
 
         LibraryItem(
-            MUButton(action: {}, configuration: .init(title: .init(), cornerRadius: 4, color: .green)),
+            MUButton(configuration: .init(title: .init(), cornerRadius: 4, color: .green), action: {}),
             title: "MUButton",
+            category: .control
+        )
+        
+        LibraryItem(
+            MUSegmentedPicker(configuration: MUSegmentedPickerConfiguration(), items:["ON", "OFF"], selection: .constant(0)),
+            title: "MUSegmentedPicker",
             category: .control
         )
     }
