@@ -11,16 +11,18 @@ public struct MUScrollGrid<Content: View>: View {
     private let content: () -> Content
     private let axis: Axis.Set
     private let girdItems: [GridItem]
+    private let spacing: CGFloat?
 
-    public init(_ axis: Axis.Set = .vertical, itemsCount: Int = 1, @ViewBuilder content: @escaping () -> Content) {
+    public init(_ axis: Axis.Set = .vertical, itemsCount: Int = 1, spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.axis = axis
-        girdItems = Array(repeating: GridItem(.flexible()), count: itemsCount)
+        self.girdItems = Array(repeating: GridItem(.flexible()), count: itemsCount)
+        self.spacing = spacing
         self.content = content
     }
 
     public var body: some View {
         ScrollView(axis) {
-            MUGrid(axis, girdItems: girdItems) {
+            MUGrid(axis, girdItems: girdItems, spacing: spacing) {
                 content()
             }
         }
