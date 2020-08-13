@@ -33,10 +33,16 @@ struct LibraryContent: LibraryContentProvider {
             title: "MUButton",
             category: .control
         )
-        
+
         LibraryItem(
             MUSegmentedPicker(configuration: MUSegmentedPickerConfiguration(), items:["ON", "OFF"], selection: .constant(0)),
             title: "MUSegmentedPicker",
+            category: .control
+        )
+
+        LibraryItem(
+            MUScrollGrid(.vertical, itemsCount: 0) {},
+            title: "MUScrollGrid",
             category: .control
         )
     }
