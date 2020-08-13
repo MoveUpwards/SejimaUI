@@ -21,7 +21,7 @@ public struct MUScrollGrid<Content: View>: View {
     }
 
     public var body: some View {
-        ScrollView(axis) {
+        ScrollView(axis, showsIndicators: false) {
             MUGrid(axis, girdItems: girdItems, spacing: spacing) {
                 content()
             }
