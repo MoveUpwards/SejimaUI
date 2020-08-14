@@ -48,7 +48,7 @@ public struct MUTagTitleConfiguration {
     }
 }
 
-struct MUTag: View {
+public struct MUTag: View {
     public let configuration: MUTagConfiguration
     public let action: (() -> Void)?
     public let title: String
@@ -59,7 +59,7 @@ struct MUTag: View {
         self.action = action
     }
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             action?()
         }) {
