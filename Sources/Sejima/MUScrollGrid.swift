@@ -41,25 +41,8 @@ public struct MUScrollGrid<Content: View>: View {
                    girdItems: girdItems,
                    spacing: spacing) {
                 content()
-                    .background(
-                        GeometryReader { proxy in
-                            Color.clear
-                                .preference(key: MUGridSizePreferenceKey.self, value: proxy.size)
-                        }
-                    )
-            }
-            .onPreferenceChange(MUGridSizePreferenceKey.self) { preferences in
-                gridSize = preferences
+                    .readSize { newSize in gridSize = newSize }
             }
         }
-    }
-}
-
-struct MUGridSizePreferenceKey: PreferenceKey {
-    typealias Value = CGSize
-    static var defaultValue: Value = .zero
-
-    static func reduce(value _: inout Value, nextValue: () -> Value) {
-        _ = nextValue()
     }
 }

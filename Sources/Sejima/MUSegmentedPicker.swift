@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-extension View {
-    func eraseToAnyView() -> AnyView {
-        AnyView(self)
-    }
-}
-
-struct SizePreferenceKey: PreferenceKey {
-    typealias Value = CGSize
-    static var defaultValue: CGSize = .zero
-    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-        value = nextValue()
-    }
-}
-
-struct BackgroundGeometryReader: View {
-    var body: some View {
-        GeometryReader { geometry in
-            return Color
-                    .clear
-                    .preference(key: SizePreferenceKey.self, value: geometry.size)
-        }
-    }
-}
-
 struct SizeAwareViewModifier: ViewModifier {
     @Binding private var viewSize: CGSize
 
@@ -40,30 +16,55 @@ struct SizeAwareViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .background(BackgroundGeometryReader())
-            .onPreferenceChange(SizePreferenceKey.self, perform: { if self.viewSize != $0 { self.viewSize = $0 }})
+            .readSize(onChange: { if self.viewSize != $0 { self.viewSize = $0 } })
     }
 }
 
-struct MUSegmentedPickerConfiguration {
-    let activeSegmentColor: Color = .orange
-    let backgroundColor: Color = .black
-    let shadowColor: Color = Color.black.opacity(0.2)
-    let textColor: Color = .white
-    let selectedTextColor: Color = .accentColor
+public struct MUSegmentedPickerConfiguration {
+    public let activeSegmentColor: Color
+    public let backgroundColor: Color
+    public let shadowColor: Color
+    public let textColor: Color
+    public let selectedTextColor: Color
 
-    let textFont: Font = .caption
-    
-    let segmentCornerRadius: CGFloat = 12
-    let shadowRadius: CGFloat = 4
-    let segmentXPadding: CGFloat = 16
-    let segmentYPadding: CGFloat = 8
-    let pickerPadding: CGFloat = 4
-    
-    let animationDuration: Double = 0.1
+    public let textFont: Font
+
+    public let segmentCornerRadius: CGFloat
+    public let shadowRadius: CGFloat
+    public let segmentXPadding: CGFloat
+    public let segmentYPadding: CGFloat
+    public let pickerPadding: CGFloat
+
+    public let animationDuration: Double
+
+    public init(activeSegmentColor: Color = .orange,
+                backgroundColor: Color = .black,
+                shadowColor: Color = Color.black.opacity(0.2),
+                textColor: Color = .white,
+                selectedTextColor: Color = .accentColor,
+                textFont: Font = .caption,
+                segmentCornerRadius: CGFloat = 12,
+                shadowRadius: CGFloat = 4,
+                segmentXPadding: CGFloat = 16,
+                segmentYPadding: CGFloat = 8,
+                pickerPadding: CGFloat = 4,
+                animationDuration: Double = 0.1) {
+        self.activeSegmentColor = activeSegmentColor
+        self.backgroundColor = backgroundColor
+        self.shadowColor = shadowColor
+        self.textColor = textColor
+        self.selectedTextColor = selectedTextColor
+        self.textFont = textFont
+        self.segmentCornerRadius = segmentCornerRadius
+        self.shadowRadius = shadowRadius
+        self.segmentXPadding = segmentXPadding
+        self.segmentYPadding = segmentYPadding
+        self.pickerPadding = pickerPadding
+        self.animationDuration = animationDuration
+    }
 }
 
-struct MUSegmentedPicker: View {
+public struct MUSegmentedPicker: View {
     let configuration: MUSegmentedPickerConfiguration
     
     // Stores the size of a segment, used to create the active segment rect
@@ -88,13 +89,13 @@ struct MUSegmentedPicker: View {
     @Binding private var selection: Int
     private let items: [String]
     
-    init(configuration: MUSegmentedPickerConfiguration, items: [String], selection: Binding<Int>) {
+    public init(configuration: MUSegmentedPickerConfiguration, items: [String], selection: Binding<Int>) {
         self.configuration = configuration
         self._selection = selection
         self.items = items
     }
     
-    var body: some View {
+    public var body: some View {
         // Align the ZStack to the leading edge to make calculating offset on activeSegmentView easier
         ZStack(alignment: .leading) {
             // activeSegmentView indicates the current selection
@@ -137,7 +138,7 @@ struct MUSegmentedPicker: View {
     // On tap to change the selection
     private func onItemTap(index: Int) {
         guard index < items.count else { return }
-        self.selection = index
+        selection = index
     }
 }
 
