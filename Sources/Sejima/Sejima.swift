@@ -41,7 +41,7 @@ struct LibraryContent: LibraryContentProvider {
         )
 
         LibraryItem(
-            MUScrollGrid(.vertical, itemsCount: 0, spacing: nil) {},
+            MUScrollGrid(.vertical, itemsCount: 0, spacing: nil, gridSize: .constant(.zero)) {},
             title: "MUScrollGrid",
             category: .control
         )
