@@ -107,7 +107,7 @@ public struct MUSpiderGraph: View {
                      y: (size - (padding + labelWidth)) / 2 * sin(angle))
     }
 
-    private func drawBranches(color: Color, style: StrokeStyle) -> some View {
+    private func drawBranches(style: StrokeStyle) -> some View {
         Path { path in
             (0..<dimensions.count).forEach { idx in
                 let point = computePosition(at: idx)
@@ -115,10 +115,10 @@ public struct MUSpiderGraph: View {
                 path.addLine(to: CGPoint(x: center.x + point.x, y: center.y + point.y))
             }
         }
-        .stroke(color, style: style)
+        .stroke(mainColor, style: style)
     }
 
-    private func drawBorder(color: Color, style: StrokeStyle) -> some View {
+    private func drawBorder(style: StrokeStyle) -> some View {
         Path { path in
             (0..<dimensions.count + 1).forEach { idx in
                 let point = computePosition(at: idx)
@@ -130,10 +130,10 @@ public struct MUSpiderGraph: View {
                 }
             }
         }
-        .stroke(color, style: style)
+        .stroke(mainColor, style: style)
     }
 
-    private func drawDividers(color: Color, style: StrokeStyle) -> some View {
+    private func drawDividers(style: StrokeStyle) -> some View {
         ForEach(0..<dividers) { index in
             Path { path in
                 (0..<dimensions.count + 1).forEach { idx in
@@ -149,7 +149,7 @@ public struct MUSpiderGraph: View {
                     }
                 }
             }
-            .stroke(color, style: style)
+            .stroke(mainColor, style: style)
         }
     }
 
@@ -189,9 +189,9 @@ public struct MUSpiderGraph: View {
     public var body: some View {
         ZStack {
             Group {
-                drawBranches(color: mainColor, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                drawBorder(color: mainColor, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                drawDividers(color: mainColor, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
+                drawBranches(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                drawBorder(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                drawDividers(style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
                 drawLabels()
             }
 
