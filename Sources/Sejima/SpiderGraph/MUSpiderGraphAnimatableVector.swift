@@ -19,19 +19,12 @@ public struct MUSpiderGraphAnimatableVector: VectorArithmetic {
         self.values = values
     }
 
-    func computeMagnitude() -> Double {
-        var sum: Double = 0.0
-
-        for index in 0..<values.count {
-            sum += values[index] * values[index]
-        }
-
-        return sum
-    }
-
     // MARK: VectorArithmetic
 
-    public var magnitudeSquared: Double { computeMagnitude() } // squared magnitude of the vector
+    /// squared magnitude of the vector
+    public var magnitudeSquared: Double {
+        values.map({ pow($0, 2) }).reduce(0.0, +)
+    }
 
     public mutating func scale(by rhs: Double) {
         for index in 0..<values.count {
