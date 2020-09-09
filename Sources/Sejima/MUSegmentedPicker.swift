@@ -77,10 +77,10 @@ public struct MUSegmentedPicker: View {
         if !isInitialized { return EmptyView().eraseToAnyView() }
         
         return
-            RoundedRectangle(cornerRadius: configuration.segmentCornerRadius)
+            RoundedRectangle(cornerRadius: configuration.segmentCornerRadius - configuration.pickerPadding / 2)
                 .foregroundColor(configuration.activeSegmentColor)
                 .shadow(color: configuration.shadowColor, radius: configuration.shadowRadius)
-                .frame(width: segmentSize.width, height: segmentSize.height)
+                .frame(width: segmentSize.width + configuration.pickerPadding * 2, height: segmentSize.height)
                 .offset(x: computeActiveSegmentHorizontalOffset(), y: 0)
                 .animation(Animation.linear(duration: configuration.animationDuration))
                 .eraseToAnyView()
@@ -113,7 +113,7 @@ public struct MUSegmentedPicker: View {
 
     // Helper method to compute the offset based on the selected index
     private func computeActiveSegmentHorizontalOffset() -> CGFloat {
-        CGFloat(selection) * (segmentSize.width + configuration.segmentXPadding / 2)
+        CGFloat(selection) * (segmentSize.width)
     }
 
     // Gets text view for the segment
@@ -124,6 +124,7 @@ public struct MUSegmentedPicker: View {
         return
             Text(items[index])
                 // Dark test for selected segment
+                .font(configuration.textFont)
                 .foregroundColor(isSelected ? configuration.selectedTextColor: configuration.textColor)
                 .lineLimit(1)
                 .padding(.vertical, configuration.segmentYPadding)
