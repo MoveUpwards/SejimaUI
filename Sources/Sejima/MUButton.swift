@@ -13,8 +13,8 @@ public struct MUButtonConfiguration {
     public let color: Color
 
     public init(title: MUTextConfiguration = .init(font: .callout),
-                cornerRadius: CGFloat = 4,
-                color: Color = .orange) {
+                cornerRadius: CGFloat = 8,
+                color: Color = .accentColor) {
         self.title = title
         self.cornerRadius = cornerRadius
         self.color = color
