@@ -25,6 +25,6 @@ struct ClockTimer_Previews: PreviewProvider {
     static var previews: some View {
         MUClockTimer(with: vm).onAppear {
             vm.start()
-        }
+        }.previewLayout(.fixed(width: 300, height: 200))
     }
 }

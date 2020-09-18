@@ -16,7 +16,7 @@ public class MUClockTimerViewModel: ObservableObject {
     @Published public var time: String = ""
 
     public init() {
-        time = "00:00dgfhdhdhd"
+        time = " 00:00:00 "
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         Timer.publish(every: 1.0, tolerance: 0.2, on: RunLoop.current, in: .common)
             .autoconnect()
