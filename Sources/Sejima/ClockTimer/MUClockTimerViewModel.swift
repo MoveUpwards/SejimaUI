@@ -36,6 +36,14 @@ public class MUClockTimerViewModel: ObservableObject {
         return Date().timeIntervalSince1970 - start
     }
 
+    public func toggleTimer() {
+        if isStarted {
+            stop()
+        } else {
+            start()
+        }
+    }
+
     public func start(with format: String = "HH:mm:ss") { // "HH:mm:ss.SSS"
         startDate = .init()
         formatter.dateFormat = format
