@@ -23,6 +23,7 @@ struct ClockTimer_Previews: PreviewProvider {
     static let vmStart = MUClockTimerViewModel(with: "mm:ss")
     static let vmInitValue = MUClockTimerViewModel(with: "mm:ss.SSS", at: 23.877)
     static let vmEmpty = MUClockTimerViewModel()
+    static var addOrClear = true
 
     static var previews: some View {
         Group {
@@ -32,7 +33,10 @@ struct ClockTimer_Previews: PreviewProvider {
             MUClockTimer(with: vmInitValue).onTapGesture {
                 vmInitValue.toggleTimer()
             }.previewLayout(.fixed(width: 100, height: 50))
-            MUClockTimer(with: vmEmpty).previewLayout(.fixed(width: 100, height: 50))
+            MUClockTimer(with: vmEmpty).onTapGesture {
+                addOrClear ? vmEmpty.add(33.806) : vmEmpty.reset()
+                addOrClear = !addOrClear
+            }.previewLayout(.fixed(width: 100, height: 50))
         }
     }
 }
