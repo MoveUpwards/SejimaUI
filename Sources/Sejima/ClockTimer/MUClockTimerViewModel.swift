@@ -10,14 +10,21 @@ import Combine
 
 public class MUClockTimerViewModel: ObservableObject {
     private var disposables = Set<AnyCancellable>()
+    private var delta: Double = 0.0
     private var startDate: Date?
     private let formatter = DateFormatter()
 
-    @Published public var time: String = ""
+    @Published public var label: String = ""
 
-    public init() {
-        time = " 00:00:00 "
+    public init(with format: String = "HH:mm:ss", at startTime: Double = 0.0) {
+        formatter.dateFormat = format
         formatter.timeZone = TimeZone(abbreviation: "UTC")
+        if startTime > 0.0 {
+            delta += startTime
+        }
+        let start = Date(timeIntervalSinceReferenceDate: delta)
+        label = formatter.string(from: start) + " " // See to remove " " trick, fix for longer string width on large number
+
         Timer.publish(every: 1.0, tolerance: 0.2, on: RunLoop.current, in: .common)
             .autoconnect()
             .receive(on: DispatchQueue.main)
@@ -37,20 +44,24 @@ public class MUClockTimerViewModel: ObservableObject {
     }
 
     public func toggleTimer() {
-        if isStarted {
-            stop()
-        } else {
-            start()
-        }
+        isStarted ? stop() : start()
     }
 
-    public func start(with format: String = "HH:mm:ss") { // "HH:mm:ss.SSS"
+    public func start() {
         startDate = .init()
-        formatter.dateFormat = format
     }
 
     public func stop() {
+        delta += currentTime
         startDate = nil
+    }
+
+    public func reset() {
+        delta = 0.0
+        guard startDate != nil else {
+            return
+        }
+        start()
     }
 
     // MARK: Private functions
@@ -59,6 +70,6 @@ public class MUClockTimerViewModel: ObservableObject {
         guard let start = startDate?.timeIntervalSince1970 else {
             return
         }
-        time = formatter.string(from: Date(timeIntervalSinceReferenceDate: date.timeIntervalSince1970 - start))
+        label = formatter.string(from: Date(timeIntervalSinceReferenceDate: date.timeIntervalSince1970 - start + delta))
     }
 }
