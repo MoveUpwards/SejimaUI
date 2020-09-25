@@ -10,18 +10,14 @@ import SwiftUI
 public struct MUHeaderConfiguration {
     public let alignment: TextAlignment
 
-    public let title: MUHeaderTextConfiguration
-    public let subtitle: MUHeaderTextConfiguration
+    public let title: MUTextConfiguration
+    public let subtitle: MUTextConfiguration
 
     public let spacing: CGFloat
 
-    public static var shared: MUHeaderConfiguration {
-        MUHeaderConfiguration()
-    }
-
     public init(alignment: TextAlignment = .leading,
-                title: MUHeaderTextConfiguration = .init(font: .title),
-                subtitle: MUHeaderTextConfiguration = .init(font: .subheadline),
+                title: MUTextConfiguration = .init(font: .title),
+                subtitle: MUTextConfiguration = .init(font: .subheadline),
                 spacing: CGFloat = 8) {
         self.alignment = alignment
         self.title = title
@@ -52,27 +48,15 @@ public struct MUHeaderConfiguration {
     }
 }
 
-public struct MUHeaderTextConfiguration {
-    public let color: Color
-    public let font: Font
-
-    public init(color: Color = .black, font: Font) {
-        self.color = color
-        self.font = font
-    }
-}
-
 public struct MUHeader: View {
+    public let configuration: MUHeaderConfiguration
     public let title: String
     public let subtitle: String
-
-    public let configuration: MUHeaderConfiguration
-
-    public init(title: String = "", subtitle: String = "", configuration: MUHeaderConfiguration = .shared) {
+    
+    public init(configuration: MUHeaderConfiguration = .init(), title: String = "", subtitle: String = "") {
+        self.configuration = configuration
         self.title = title
         self.subtitle = subtitle
-
-        self.configuration = configuration
     }
 
     public var body: some View {
@@ -99,34 +83,35 @@ public struct MUHeader: View {
 struct MUHeader_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .center,
-                                                          title: MUHeaderTextConfiguration(color: .green, font: .title),
-                                                          subtitle: MUHeaderTextConfiguration(color: .blue, font: .subheadline),
-                                                          spacing: 0)).previewLayout(.sizeThatFits)
-
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .leading)).previewLayout(.sizeThatFits)
-
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .trailing)).previewLayout(.sizeThatFits)
-
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "Lorem ipsum dolor sit.",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
-
-            MUHeader(title: "Lorem ipsum dolor",
-                     subtitle: "",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
-
-            MUHeader(title: "",
-                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.",
-                     configuration: MUHeaderConfiguration(alignment: .center)).previewLayout(.sizeThatFits)
-
-            MUHeader().previewLayout(.sizeThatFits)
+            MUHeader(
+                configuration: MUHeaderConfiguration(alignment: .center,
+                                                     title: .init(color: .green, font: .title),
+                                                     subtitle: .init(color: .blue, font: .subheadline),
+                                                     spacing: 0),
+                title: "Lorem ipsum dolor",
+                subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").frame(width: 300).previewLayout(.sizeThatFits)
+            
+            MUHeader(configuration: .init(alignment: .leading),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").frame(width: 300).previewLayout(.sizeThatFits)
+            
+            MUHeader(configuration: .init(alignment: .trailing),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").frame(width: 300).previewLayout(.sizeThatFits)
+            
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "Lorem ipsum dolor sit.").previewLayout(.sizeThatFits)
+            
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "Lorem ipsum dolor",
+                     subtitle: "").frame(width: 300).previewLayout(.sizeThatFits)
+            
+            MUHeader(configuration: .init(alignment: .center),
+                     title: "",
+                     subtitle: "Lorem ipsum dolor sit, consectetur adipiscing elit. Fusce faucibus sit amet lectus vitae porttitor.").frame(width: 300).previewLayout(.sizeThatFits)
+            
+            MUHeader().frame(width: 300).previewLayout(.sizeThatFits)
         }
     }
 }
