@@ -21,9 +21,11 @@ public struct MUSpiderGraph: View {
     }
 
     private let mainColor: Color
+    private let showLabel: Bool
     private let labelColor: Color
-    private let labelWidth: CGFloat = 70
+    private let labelWidth: CGFloat
     private let width: CGFloat
+    private let padding: CGFloat
     private let dividerCount: Int
     private let maxValue: Double
     private let dimensions: [String]
@@ -33,16 +35,22 @@ public struct MUSpiderGraph: View {
     @State private var controlPoints: [MUSpiderGraphAnimatableVector]
 
     public init(width: CGFloat,
+                padding: CGFloat = 16,
                 mainColor: Color = .white,
+                showLabel: Bool = true,
                 labelColor: Color = Color.white.opacity(0.7),
+                labelWidth: CGFloat = 70,
                 dividers: Int = 5,
                 maxValue: Double = 10.0,
                 dimensions: [String],
                 capacity: Int = 0,
                 datas: [DataSet]) {
         self.width = width
+        self.padding = padding
         self.mainColor = mainColor
+        self.showLabel = showLabel
         self.labelColor = labelColor
+        self.labelWidth = showLabel ? labelWidth : 0
         self.dividerCount = dividers
         self.maxValue = maxValue
         self.dimensions = dimensions
@@ -54,7 +62,6 @@ public struct MUSpiderGraph: View {
     }
 
     @State private var showLabels = false
-    @State private var padding = CGFloat(50)
 
     private func drawLabels() -> some View {
        ForEach(0..<dimensions.count) {
@@ -158,12 +165,12 @@ public struct MUSpiderGraph: View {
                 drawBranches(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                 drawBorder(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                 drawDividers(style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
-                drawLabels()
+                
+                if showLabel { drawLabels() }
             }
 
-            ForEach(datas) { data in
-                drawPolygon(for: data, style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round))
-                    .animation(.spring())
+            ForEach(datas) {
+                drawPolygon(for: $0, style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round))
             }
         }
         .onChange(of: datas) { _ in
