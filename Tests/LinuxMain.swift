@@ -1,7 +1,7 @@
 import XCTest
 
-import SejimaTests
+import SejimaUITests
 
 var tests = [XCTestCaseEntry]()
-tests += SejimaTests.allTests()
+tests += SejimaUITests.allTests()
 XCTMain(tests)
