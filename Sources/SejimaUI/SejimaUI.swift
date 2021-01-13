@@ -1,6 +1,6 @@
 //
 //  LibraryContent.swift
-//  Sejima
+//  SejimaUI
 //
 //  Created by Loïc GRIFFIE on 29/06/2020.
 //

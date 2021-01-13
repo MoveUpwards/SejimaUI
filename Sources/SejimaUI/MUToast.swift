@@ -5,6 +5,8 @@
 //  Created by Loïc GRIFFIE on 02/08/2020.
 //
 
+#if !os(macOS)
+
 import SwiftUI
 
 struct MUToast: View {
@@ -58,3 +60,5 @@ struct MUToast_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
+
+#endif

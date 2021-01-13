@@ -1,5 +1,5 @@
 //
-//  Sejima+View.swift
+//  SejimaUI+View.swift
 //  
 //
 //  Created by Loïc GRIFFIE on 27/08/2020.

@@ -5,7 +5,10 @@
 //  Created by Loïc GRIFFIE on 02/08/2020.
 //
 
+#if !os(macOS)
+
 import SwiftUI
+import UIKit
 
 struct CornerRadiusStyle: ViewModifier {
     let radius: CGFloat
@@ -34,3 +37,5 @@ extension View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
     }
 }
+
+#endif
