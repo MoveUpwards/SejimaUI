@@ -9,55 +9,90 @@
 
 import SwiftUI
 
-struct MUToast: View {
-    let title: String
-    let message: String
-    let cornerRadius: CGFloat
+public struct MUToast<Header: View, Content: View>: View {
+    let header: () -> Header
+    let content: () -> Content
+
+    let indicatorColor: Color
     let indicatorWidth: CGFloat
+
+    init(
+        indicatorWidth: CGFloat = 0,
+        indicatorColor: Color = .clear,
+        @ViewBuilder header: @escaping () -> Header,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.header = header
+        self.content = content
+        self.indicatorWidth = indicatorWidth
+        self.indicatorColor = indicatorColor
+    }
     
-    var body: some View {
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-            Rectangle()
-                .foregroundColor(.blue)
-            
-            HStack {
-                Group {
-                    Rectangle()
-                        .frame(width: max(indicatorWidth, cornerRadius))
-                        .foregroundColor(.green)
-                    
-                    VStack(spacing: 8) {
-                        MUHeader(title: title, subtitle: message)
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 8) {
-                            MUButton(configuration: .init(title: .init(text: "Cancel"))) {
-                                
-                            }
-                            
-                            Spacer()
-                            
-                            MUButton(configuration: .init(title: .init(text: "Save"))) {
-                                
-                            }
-                        }
-                    }.padding()
-                }
+    public var body: some View {
+        HStack {
+            VStack(alignment: .center, spacing: 16) {
+                header()
+                content()
             }
+            .padding(.leading, indicatorWidth)
+            .padding()
+            .background(HStack(spacing: 0) {
+                Rectangle()
+                    .foregroundColor(indicatorColor)
+                    .frame(width: indicatorWidth)
+                Spacer()
+            })
         }
-        .mask(Rectangle().cornerRadius(radius: cornerRadius, corners: .allCorners))
     }
 }
 
 struct MUToast_Previews: PreviewProvider {
     static var previews: some View {
-        MUToast(title: "Api erorr message",
-                    message: "An error has occured. Please try again later. An error has occured. Please try again later.",
-                    cornerRadius: 8,
-                    indicatorWidth: 12)
-            .frame(width: 300, height: 200)
+        VStack {
+            MUToast(indicatorWidth: 20, indicatorColor: .green) {
+                HStack(alignment: .top) {
+                    MUHeader(configuration: .init(alignment: .leading, spacing: 0), title: "title", subtitle: "message")
+                    Spacer()
+                }
+            } content: {
+                HStack(spacing: 8) {
+                    MUButton(configuration: .init(title: .init(text: "Cancel"), color: .pink)) { print("cancel") }
+                    MUButton(configuration: .init(title: .init(text: "Save"), color: .purple)) { print("save") }
+                }
+            }
+            .background(Color.blue)
+            .mask(Rectangle().cornerRadius(radius: 8, corners: .allCorners))
+            .padding()
             .previewLayout(.sizeThatFits)
+
+
+            VStack(spacing: 16) {
+                HStack(alignment: .top) {
+                    MUHeader(configuration: .init(alignment: .leading, spacing: 0), title: "title", subtitle: "message")
+                    Spacer()
+                }
+
+                HStack(spacing: 8) {
+                    MUButton(configuration: .init(title: .init(text: "Cancel"), color: .pink)) { print("cancel") }
+                    MUButton(configuration: .init(title: .init(text: "Save"), color: .purple)) { print("save") }
+                }
+            }
+            .padding(.leading, 20)
+            .padding()
+            .background(
+                HStack(spacing: 0) {
+                    Rectangle()
+                        .foregroundColor(.green)
+                        .frame(width: 20)
+                    Spacer()
+                }
+            )
+            .frame(minWidth: 300)
+            .background(Color.blue)
+            .mask(Rectangle().cornerRadius(radius: 8, corners: .allCorners))
+            .padding()
+            .previewLayout(.sizeThatFits)
+        }
     }
 }
 
