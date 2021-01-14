@@ -45,5 +45,26 @@ struct LibraryContent: LibraryContentProvider {
             title: "MUScrollGrid",
             category: .control
         )
+
+        LibraryItem(
+            MUSpiderGraph(
+                datas: [
+                    SpiderGraphDataSet(values: [0], color: .green)
+                ],
+                padding: 8,
+                mainColor: .accentColor,
+                dividers: 4,
+                maxValue: 1.0,
+                dimensions: [
+                    Text("Dimension 1").eraseToAnyView()
+                ],
+                dimensionsPadding: 8,
+                capacity: 1,
+                score: {
+                    Text("56")
+                }),
+            title: "MUSpiderGraph",
+            category: .control
+        )
     }
 }
