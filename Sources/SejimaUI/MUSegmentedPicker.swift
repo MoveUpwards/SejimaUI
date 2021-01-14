@@ -80,7 +80,7 @@ public struct MUSegmentedPicker: View {
             RoundedRectangle(cornerRadius: configuration.segmentCornerRadius - configuration.pickerPadding / 2)
                 .foregroundColor(configuration.activeSegmentColor)
                 .shadow(color: configuration.shadowColor, radius: configuration.shadowRadius)
-                .frame(width: segmentSize.width + configuration.pickerPadding * 2, height: segmentSize.height)
+                .frame(width: segmentSize.width, height: segmentSize.height)
                 .offset(x: computeActiveSegmentHorizontalOffset(), y: 0)
                 .animation(Animation.linear(duration: configuration.animationDuration))
                 .eraseToAnyView()
@@ -89,7 +89,7 @@ public struct MUSegmentedPicker: View {
     @Binding private var selection: Int
     private let items: [String]
     
-    public init(configuration: MUSegmentedPickerConfiguration, items: [String], selection: Binding<Int>) {
+    public init(configuration: MUSegmentedPickerConfiguration = .init(), items: [String], selection: Binding<Int>) {
         self.configuration = configuration
         self._selection = selection
         self.items = items
@@ -113,7 +113,7 @@ public struct MUSegmentedPicker: View {
 
     // Helper method to compute the offset based on the selected index
     private func computeActiveSegmentHorizontalOffset() -> CGFloat {
-        CGFloat(selection) * (segmentSize.width)
+        CGFloat(selection) * (segmentSize.width + configuration.pickerPadding * 2)
     }
 
     // Gets text view for the segment
@@ -123,14 +123,12 @@ public struct MUSegmentedPicker: View {
         let isSelected = selection == index
         return
             Text(items[index])
-                // Dark test for selected segment
                 .font(configuration.textFont)
                 .foregroundColor(isSelected ? configuration.selectedTextColor: configuration.textColor)
                 .lineLimit(1)
                 .padding(.vertical, configuration.segmentYPadding)
                 .padding(.horizontal, configuration.segmentXPadding)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                // Watch for the size of the
                 .modifier(SizeAwareViewModifier(viewSize: $segmentSize))
                 .onTapGesture { onItemTap(index: index) }
                 .eraseToAnyView()
@@ -143,13 +141,10 @@ public struct MUSegmentedPicker: View {
     }
 }
 
-
-struct PreviewView: View {
-    @State var selection: Int = 0
-    private let items: [String] = ["M", "T", "W", "T", "F"]
-    
-    var body: some View {
-        MUSegmentedPicker(configuration: MUSegmentedPickerConfiguration(), items:items, selection: $selection)
+struct MUSegmentedPicker_Previews: PreviewProvider {
+    static var previews: some View {
+        MUSegmentedPicker(items:  ["M", "T", "W", "T", "F"], selection: .constant(3))
             .padding()
+            .previewLayout(.sizeThatFits)
     }
 }
