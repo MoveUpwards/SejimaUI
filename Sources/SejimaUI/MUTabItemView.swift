@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  MUTabItemView.swift
 //  
 //
 //  Created by Damien Noël Dubuisson on 14/01/2021.
@@ -7,14 +7,22 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+public struct MUTabItemView<Content: View> {
+    public let action: (Int) -> Void
+    public let item: () -> Content
+
+    public init(action: @escaping (Int) -> Void, @ViewBuilder content: @escaping () -> Content) {
+        self.action = action
+        self.item = content
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
+extension MUTabItemView {
+    public func action(at index: Int) {
+        action(index)
+    }
+
+    public func toView() -> AnyView {
+        item().eraseToAnyView()
     }
 }
