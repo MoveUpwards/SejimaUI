@@ -27,3 +27,54 @@ private struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {}
 }
+
+// MARK: - FillParent view modifier
+
+public enum FillParent { case horizontally, vertically, fill }
+
+public extension View {
+    func fillParent(_ orientation: FillParent = .fill) -> some View {
+        switch orientation {
+        case .horizontally:
+            return modifier(FillHorizontallyModifier()).eraseToAnyView()
+        case .vertically:
+            return modifier(FillVerticallyModifier()).eraseToAnyView()
+        case .fill:
+            return modifier(FillParentModifier()).eraseToAnyView()
+        }
+    }
+}
+
+private struct FillHorizontallyModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        HStack {
+            Spacer()
+            content
+            Spacer()
+        }
+    }
+}
+
+private struct FillVerticallyModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            Spacer()
+            content
+            Spacer()
+        }
+    }
+}
+
+private struct FillParentModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                content
+                Spacer()
+            }
+            Spacer()
+        }
+    }
+}
