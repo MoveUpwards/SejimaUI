@@ -16,7 +16,7 @@ public struct MUToast<Header: View, Content: View>: View {
     let indicatorColor: Color
     let indicatorWidth: CGFloat
 
-    init(
+    public init(
         indicatorWidth: CGFloat = 0,
         indicatorColor: Color = .clear,
         @ViewBuilder header: @escaping () -> Header,
