@@ -19,9 +19,7 @@ public class MUClockTimerViewModel: ObservableObject {
     public init(with format: String = "HH:mm:ss", at startTime: TimeInterval = 0.0) {
         formatter.dateFormat = format
         formatter.timeZone = TimeZone(abbreviation: "UTC")
-        if startTime > 0.0 {
-            delta += startTime
-        }
+        if startTime > 0.0 { delta += startTime }
         updateLabel(with: delta)
         label += " " // See to remove " " trick, fix for longer string width on large number
 
@@ -35,7 +33,7 @@ public class MUClockTimerViewModel: ObservableObject {
     }
 
     public var isStarted: Bool {
-        return startDate == nil ? false : true
+        startDate == nil ? false : true
     }
 
     public var currentTime: TimeInterval {
@@ -59,9 +57,7 @@ public class MUClockTimerViewModel: ObservableObject {
     public func reset() {
         delta = 0.0
         updateLabel(with: delta)
-        guard startDate != nil else {
-            return
-        }
+        guard startDate != nil else { return }
         start()
     }
 
@@ -73,9 +69,7 @@ public class MUClockTimerViewModel: ObservableObject {
     // MARK: Private functions
 
     private func tick(date: Date) {
-        guard let start = startDate?.timeIntervalSince1970 else {
-            return
-        }
+        guard let start = startDate?.timeIntervalSince1970 else { return }
         updateLabel(with: date.timeIntervalSince1970 - start + delta)
     }
 
