@@ -33,7 +33,7 @@ public struct MUButton: View {
     public var body: some View {
         Button(action: action, label: {
             Spacer()
-            Text(configuration.title.text.uppercased())
+            Text(LocalizedStringKey(configuration.title.text.uppercased()))
                 .font(configuration.title.font)
                 .fontWeight(configuration.title.fontWeight)
                 .foregroundColor(configuration.title.color)

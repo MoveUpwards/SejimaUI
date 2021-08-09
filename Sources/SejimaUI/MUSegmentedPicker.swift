@@ -122,7 +122,7 @@ public struct MUSegmentedPicker: View {
         
         let isSelected = selection == index
         return
-            Text(items[index])
+            Text(LocalizedStringKey(items[index]))
                 .font(configuration.textFont)
                 .foregroundColor(isSelected ? configuration.selectedTextColor: configuration.textColor)
                 .lineLimit(1)

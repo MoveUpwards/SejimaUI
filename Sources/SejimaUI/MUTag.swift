@@ -63,7 +63,7 @@ public struct MUTag: View {
         Button(action: {
             action?()
         }) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .fontWeight(configuration.title.fontWeight)
                 .font(configuration.title.font)
                 .foregroundColor(configuration.title.color)

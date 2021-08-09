@@ -58,7 +58,7 @@ public struct MUTextField: View {
                 .foregroundColor(configuration.title.color)
                 .padding(.bottom, configuration.spacing)
 
-            Text(placeholder)
+            Text(LocalizedStringKey(placeholder))
                 .font(configuration.placeholder.font)
                 .fontWeight(configuration.placeholder.fontWeight)
                 .foregroundColor(configuration.placeholder.color)

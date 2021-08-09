@@ -62,7 +62,7 @@ public struct MUHeader: View {
     public var body: some View {
         VStack(alignment: configuration.titleAlignment) {
             if !title.isEmpty {
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .foregroundColor(configuration.title.color)
                     .font(configuration.title.font)
                     .lineLimit(1)
@@ -70,7 +70,7 @@ public struct MUHeader: View {
             }
 
             if !subtitle.isEmpty {
-                Text(subtitle)
+                Text(LocalizedStringKey(subtitle))
                     .foregroundColor(configuration.subtitle.color)
                     .font(configuration.subtitle.font)
                     .lineLimit(nil)
